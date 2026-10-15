@@ -1,0 +1,33 @@
+### dace: ignore run artifacts, generated data and caches (never ignore code dirs such as models/ data/ config/) ###
+# python / tooling
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.env
+.env.*
+.DS_Store
+
+# training / evaluation outputs
+/logs/
+/outputs/
+/checkpoints/
+wandb/
+results/
+/src/360-LLaMA-Factory/saves/
+
+# generated RL data (python data/safety/preprocess_dace.py ...)
+/data/safety/*.parquet
+
+# SFT data (download from HF or regenerate with data-sft/)
+/src/360-LLaMA-Factory/data/*.json
+!/src/360-LLaMA-Factory/data/dataset_info.json
+/data-sft/*.json
+/data-sft/*.jsonl
+/data-sft/*.err
+
+# evaluation caches / downloaded data
+/eval/safety-eval-fork/evaluation/tasks/generation/alpacaeval/cache/
+/eval/safety-eval-fork/evaluation/tasks/generation/mmlu/data/
+/eval/olmes/api_eval_results/
+/eval/OpenRT/autodan_turbo_r_*

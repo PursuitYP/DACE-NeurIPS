@@ -1,0 +1,45 @@
+### model
+### dace: HF hub id (or a local path) of the attacker backbone ###
+model_name_or_path: Qwen/Qwen2.5-7B-Instruct
+# resume_from_checkpoint:
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z2_config.json
+
+### dataset
+# DACE SFT data: strategy-conditioned CoT rewrites (12 risk categories x 10 attack styles)
+# Download from HF (see README) or regenerate with: data-sft/distill_v4_vanilla_*_jsonl.py → data-sft/convert_v4_cot_to_game_format.py
+# Registered in: src/360-LLaMA-Factory/data/dataset_info.json
+dataset: game_cot_dace_v4_harmful,game_cot_dace_v4_benign
+template: qwen
+cutoff_len: 32768
+# max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+### dace: relative output dir (used as ATTACKER_MODEL_PATH by scripts/rl) ###
+output_dir: saves/dace_sft/qwen2d5-7b_v4_full_sft_dsz2
+logging_steps: 1
+save_steps: 4000
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 5.0e-6
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+val_size: 0.1
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 50
