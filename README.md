@@ -162,7 +162,7 @@ Main hyperparameters (defaults of `scripts/rl/train_dace.sh`):
 
 | Group | Setting |
 |---|---|
-| GRPO | train batch 64 prompts, rollout n = 6, lr 1e-6, no KL loss, 300 steps |
+| GRPO | train batch 64 prompts, rollout n = 4, lr 1e-6, no KL loss, 300 steps |
 | Lengths | max prompt 8192, max response 6144 tokens (per turn) |
 | Agent switching | ratio mode, switch every 15 steps, attacker : defender = 1 : 1, `START_AGENT=attacker` |
 | Coverage reward | λ<sub>succ</sub> = 1.0, λ<sub>fail</sub> = 0.5, ε<sub>div</sub> = 1e-8 |
